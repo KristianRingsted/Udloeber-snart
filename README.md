@@ -8,7 +8,7 @@ ny teknologi (HA(it.), CBS, efterår 2026).
 
 ## Demovideo
 
-[INDSÆT LINK HER]
+https://www.youtube.com/shorts/J6pjstK-BZ8
 
 ## Kom i gang
 
