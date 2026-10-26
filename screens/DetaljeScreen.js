@@ -1,8 +1,9 @@
 // DetaljeScreen.js
-// Viser én enkelt vare. Herfra kan varen slettes, f.eks. når den er spist.
+// Viser én enkelt vare med billede, hvis den har et.
+// Herfra kan varen slettes, f.eks. når den er spist.
 
 import React, { useContext } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Image, Button } from 'react-native';
 
 import { VareContext } from '../App';
 import { dageTilbage, formatDato } from '../styles/hjaelp';
@@ -23,6 +24,11 @@ export default function DetaljeScreen({ route, navigation }) {
 
   return (
     <View style={styles.side}>
+      {/* Billedet vises kun hvis varen er oprettet med kameraet */}
+      {vare.billede && (
+        <Image source={{ uri: vare.billede }} style={styles.detaljeBillede} />
+      )}
+
       <Text style={styles.detaljeNavn}>{vare.navn}</Text>
 
       <Text style={styles.detaljeTekst}>
@@ -37,7 +43,6 @@ export default function DetaljeScreen({ route, navigation }) {
           : `Udløber om ${dage} ${dage === 1 ? 'dag' : 'dage'}`}
       </Text>
 
-      {/* Knap 4: sletter varen */}
       <View style={styles.knapAfstand}>
         <Button title="Slet vare" color="#c0392b" onPress={slet} />
       </View>

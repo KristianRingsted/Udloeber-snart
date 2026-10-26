@@ -1,7 +1,7 @@
 // App.js
 // Rodkomponenten. Her sættes navigationen op, og her ligger appens data (varerne),
-// så alle tre skærme kan læse og ændre den samme liste.
-// Varerne gemmes nu med AsyncStorage, så de overlever at appen lukkes.
+// så alle skærme kan læse og ændre den samme liste.
+// Varerne gemmes med AsyncStorage, så de overlever at appen lukkes.
 
 import React, { useState, useEffect, createContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import OversigtScreen from './screens/OversigtScreen';
 import TilfoejScreen from './screens/TilfoejScreen';
+import HurtigTilfoejScreen from './screens/HurtigTilfoejScreen';
 import DetaljeScreen from './screens/DetaljeScreen';
 
 export const VareContext = createContext();
@@ -100,6 +101,11 @@ export default function App() {
             name="Oversigt"
             component={OversigtScreen}
             options={{ title: 'Udløber snart' }}
+          />
+          <Stack.Screen
+            name="HurtigTilfoej"
+            component={HurtigTilfoejScreen}
+            options={{ title: 'Hurtig tilføj' }}
           />
           <Stack.Screen
             name="Tilfoej"

@@ -1,10 +1,10 @@
 // OversigtScreen.js
 // Appens forside. Viser alle varer i en liste, sorteret så det der udløber
-// først står øverst. Herfra kan man gå videre til at tilføje en vare
-// eller trykke på en vare for at se detaljer.
+// først står øverst. Herfra kan man tilføje en vare - hurtigt med billede
+// eller manuelt - og trykke på en vare for at se detaljer.
 
 import React, { useContext } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Button } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, Button } from 'react-native';
 
 import { VareContext } from '../App';
 import { dageTilbage } from '../styles/hjaelp';
@@ -30,7 +30,15 @@ export default function OversigtScreen({ navigation }) {
         style={styles.raekke}
         onPress={() => navigation.navigate('Detalje', { vare: item })}
       >
+        {/* Miniaturebillede hvis varen har et, ellers en grå firkant */}
+        {item.billede ? (
+          <Image source={{ uri: item.billede }} style={styles.miniBillede} />
+        ) : (
+          <View style={styles.miniTom} />
+        )}
+
         <Text style={styles.vareNavn}>{item.navn}</Text>
+
         <Text style={erKritisk ? styles.dageKritisk : styles.dage}>
           {dage < 0
             ? 'Udløbet'
@@ -54,16 +62,24 @@ export default function OversigtScreen({ navigation }) {
         data={sorteredeVarer}
         keyExtractor={(item) => item.id}
         renderItem={visVare}
-        // Vises hvis listen er tom
         ListEmptyComponent={
           <Text style={styles.tom}>Ingen varer endnu. Tilføj den første.</Text>
         }
       />
 
-      {/* Knap 1: navigerer til skærmen hvor man tilføjer en vare */}
+      {/* Den hurtige vej står først, fordi brugerne pegede på at
+          indtastning var den største forhindring. */}
       <View style={styles.knapBund}>
         <Button
-          title="Tilføj vare"
+          title="Tag billede af vare"
+          onPress={() => navigation.navigate('HurtigTilfoej')}
+        />
+      </View>
+
+      <View style={styles.knapAfstand}>
+        <Button
+          title="Tilføj manuelt"
+          color="#888"
           onPress={() => navigation.navigate('Tilfoej')}
         />
       </View>
